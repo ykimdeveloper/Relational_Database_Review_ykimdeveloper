@@ -1,0 +1,27 @@
+CS122 Lab 2 
+PART B
+--------------------------------------------------------------------------- 
+1. List the last names and memberIDs of all members who are assigned to salesperson #2.
+
+SOLUTION
+SELECT LastName, MemberID FROM Members WHERE (SalesID = 2);
+
+2. List the names of all jazz titles.
+
+SOLUTION
+SELECT Title FROM Titles WHERE (genre = "jazz");
+
+3. List the names of all titles that are NOT in the alternative genre.
+
+SOLUTION
+SELECT Title FROM Titles WHERE !(genre = "alternative");
+
+4. Show each region in which there is at least one member.  List each region only once.
+
+SOLUTION
+SELECT DISTINCT RespParty, Region From XrefArtistsMembers, Artists  Where (RespParty = 1);
+
+5. Show each region in which there is at least one female member.  List each of these regions only once each.
+
+SOLUTION
+SELECT DISTINCT region, gender FROM Members WHERE (gender = "f");

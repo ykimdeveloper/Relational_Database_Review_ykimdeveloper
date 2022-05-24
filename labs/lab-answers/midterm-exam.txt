@@ -1,0 +1,81 @@
+
+1. 
+SOLUTION
+	TitleID: 1
+	ArtistID:1
+	Title: "part ii: Meditation"
+	StudioID: 1
+	UPC: 12352823
+	Genre: alternative
+
+2. Suppose an Aritst's ArtistID does not appear as the ArtistID for any record in the Titles table.  What does this mean?
+
+SOLUTION: 
+	That means this particular Artist didn't record any songs.  The Artist doesn't have on file any songs on record and is not associated with any Studios.  
+
+3. 
+SOLUTION: 
+	a. Because ID is an entirely distinct and can't be the same from other ID's
+	b. Natural Join is automatically determined by the DBMS and it's inpredictable. 
+	c. Place the ShipID as a foreign key for the Products table and have the productsID inside the ships table as a foreign key.  
+	d. there could be an extra table as NumberOfCargo with both primary keys of the Ships Table and Products Table as all Primary Keys inside along with quantity of the cargo.
+
+4. 
+SOLUTION: 
+	a. It shouldn't be viewed that the Jersey Devil's weight is 0 since Null doesn't mean zero.  It means that it's not on record and therefore can't conclude that 0 is the weight.
+
+	b. The output will list the quantity of monsters 4.
+
+	c. Aggregate function Count will disregard Null and is 3.
+
+	d. (50000 + 400 + 200 )/ 3 = 16866.66666667
+
+
+5. SELECT MIN(Birthday) FROM Members WHERE Gender = "F";
+
+SOLUTION: 
+	Show the oldest woman Member from all of members on record.  
+
+6. SELECT A.ArtistName, T.Title, S.StudioName FROM Artists A JOIN Titles T ON(A.ArtistID = T.ArtistID) JOIN Studios S ON(T.StudioID = S.StudioID); 
+
+SOLUTION:
+	Show all the Titles and show that it was recorded by a particular name of that Studio and list that along with the name of the Artist.  
+
+7. SOLUTION: We first need an Employees Table with a listing of Employees differentiating with a set of ID numbers that are all different as the primary key for example EmployeeID numbers and it's Foreign key will be the KioskID number from the Kiosk Table.  Along inside the Employee Table, there should be the employee's first and last name, address, phone number and Base Pay and possibly a Supervisor.  In the Kiosk Table the Primary Key will be KioskId and the Foreign key will be the EmployeeID and since each kiosk will only have no more than 1 employee, it should be the foreign key for the Kiosk Table.  Also it should have the location of the kiosk at which shopping mall and what country that kiosk will be at.  
+
+
+8. show the average base salary of all sales people. Remember that the table is calld SalesPeople, with this capitalization. 
+
+SOLUTION: 
+	SELECT AVG(Base) FROM SalesPeople;
+
+9. Show the number of Members who are over 40 years old when the query is run. Assume each year contains 365.25 days.  Use CURDATE() so that query will work correctly whenever it is run.  
+
+SOLUTION: 
+	SELECT COUNT(*) FROM Members Where ((DATEDIFF(CURDATE(), Birthday)) / 365.25) > 40 ;
+
+10. Show the SalesID and last name of each salesPerson who reports to Scott Bull
+
+SOLUTION: 
+	SELECT Sales.SalesID, Sales.FirstName 
+	FROM SalesPeople Sales JOIN SalesPeople  USING(SalesID)  
+	LEFT JOIN SalesPeople Sales2 ON Sales.Supervisor = Sales2.SalesID
+	WHERE Sales2.FirstName = 'Scott' AND Sales2.LastName = 'Bull';
+
+11. List all the TrackTitles and whether or not each one is part of a title by the Neurotics. Use CASE or IF. 
+ 
+SOLUTION: 
+	SELECT Tr.TrackTitle,
+	CASE 
+	WHEN A.ArtistName = 'The Neurotics'
+	THEN 'Is part of the Title by Neurotics' ELSE 'Not part of the title by Neurotics'
+	END AS 'Is it Part of Neurtotics?'
+	FROM Tracks Tr JOIN Titles T USING(TitleID) JOIN Artists A USING(ArtistID);
+
+12. SHOW THE TRACK TITLE OF EACH TRACK THAT IS NOT ON A TITLE BY THE NEUROTICS. DO NOT INCLUDE ANY TRACKS NOT BY THE NEUROTICS. 
+
+SOLUTION: 
+	SELECT Tr.TrackTitle FROM Tracks Tr JOIN Titles T USING(TitleID) JOIN Artists A USING(ArtistID) WHERE NOT(A.ArtistName = 'The Neurotics');
+
+
+

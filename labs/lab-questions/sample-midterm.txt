@@ -1,0 +1,90 @@
+CS122 Winter 2016 Sample Midterm
+
+Use a text editor such as Notepad++, TextEdit, TextWrangler, etc. to prepare a document containing the answers to these questions with the question numbers. 
+
+Many of the questions refer to the Lyric database.
+
+Part I: Short Answers, 4 points each
+
+1. Run the following query:
+SELECT * FROM SalesPeople;
+
+Provide an example of a data record that could not be added to the SalesPeople table due to a primary key conflict.  Here is an example of a wrong but
+correctly-formatted answer:
+
+SalesID: 10
+FirstName: Mary
+LastName: Smith
+Initials: MLS
+Base: 100
+Supervisor: 1
+
+2. Suppose a Member's MemberID does not appear as the MemberID for any record in the XRefArtistsMembers table. What does this mean?
+
+3. Consider the following tables:
+Ships
+ID		Name				MaxSpeed
+1		Bounty				20
+2		Lusitania			40
+3		Edmund Fitzgerald		60
+4		Good Ship Lollipop		30
+
+Products
+ID		Description
+4		Breadfruit
+5		Ammunition
+8		Iron Ore
+17		Candy
+
+a) Why is ID a better primary key than Name for the Ships table? 
+b) A natural join using these two tables would probably not be very meaningful.  Why not?
+c) Suppose each ship carried exactly one type of cargo.  How could we change the database to show which ships carried which types of cargo?
+d) Suppose each ship could carry any number of cargo types, including zero.  How could we change the database to show which ships carried which types of cargo?		
+
+4. Consider a table called "Monsters" with the following data:
+
+ID 	Name			WeightInKg
+1 	Mothra			15000
+2 	Smog Monster	5000
+3 	Godzilla		NULL
+
+What output (specific number, eg 2000) would the following query produce?
+
+SELECT avg(WeightInKg) FROM monsters;
+
+
+Section II: SQL To English, 6 pts each
+Explain in one or two sentences what each SQL query does.
+Example answer:
+This query lists all members and, for each one, whether or not s/he is a member of any artist that has recorded at the studio MakeTrax.
+
+5. SELECT MAX(Birthday) FROM Members WHERE Country != "Canada";
+
+6. SELECT Lastname, FirstName, ArtistName FROM Members M INNER JOIN XrefArtistsMembers X On M.MemberID = X.MemberID INNER JOIN Artists A On A.ArtistID = X.ArtistID WHERE M.Gender = "F";
+
+
+Section IV: One-Paragraph Answer, 12 points
+Answer the question in a well-structured paragraph of about five sentences.  The first sentence should give a general answer to the question, the middle sentences should give some more specific information, and the final sentence should summarize the previous information.  Your answer should be well thought out, but I will penalize you heavily if you do not write a good paragraph.
+
+_____
+7. You are writing a large application for your employer, the Universal Glue Corporation.  The application will maintain information on the company's products, customers, employees, and vendors. It will also track the company's accounting data (such as its debts to other organizations, debts owed to it, its revenues and expenses, etc.)  Why should you use a relational database instead of an Excel spreadsheet or a text file?
+
+
+Section IV: English To SQL, 10 points each
+Write a SQL query that finds the information requested for each question.  All questions refer to the Lyric database.  Use one query per question.
+ 
+Example answer: 
+SELECT M.Lastname FROM Members M INNER JOIN XrefArtistsMembers X USING(Me
+mberID) LEFT JOIN Titles T USING(ArtistID) WHERE T.Title = "Neurotic Sequel";
+
+8. Show how many SalesPeople (just one number, not a list) have base salaries higher than 100
+
+9. Show the average time in years since each artist was entered in the database.  Calculate the time based on the Entrydate field in the artists table and assume each year contains 365.25 days.  Use CURDATE() so that the query will work correctly whenever it is run.
+
+10. Show the name of each studio with the last name of the *supervisor* of the salesperson who represents it.
+
+11. List each track and whether or not it is part of a title in the "classical" genre. Use CASE or IF.
+
+12. Show the Tracktitle of each track that was *not* recorded at Pacific Rim.
+
+13. Show the names of all studios where no alternative titles have been recorded.

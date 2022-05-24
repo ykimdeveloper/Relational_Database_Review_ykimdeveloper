@@ -1,0 +1,75 @@
+CS122 Lab 5 
+
+Section 1: Short Answers, 2 pts each
+
+1. a) (1 pt) What is the numeric index of the first character in a string in SQL?  
+SOLUTION: 
+	Unlike Java and C, the index of the array starts on 1;
+
+An example of a correctly expressed but wrong answer is 5.
+1. b) (2 pt) What is the numeric index of the n in the SQL string "John Hurley"?
+SOLUTION: 
+	Length would be 4
+	
+2. Suppose we want to use a SQL function without referring to any data from an database.  For example, we may want to use greatest() find the largest number in a list.  Before the name of the function, we will need to use the _____________ keyword.  (Example wrong answer: WHERE.) 
+SOLUTION:
+	SELECT
+
+3. What are nested functions?
+SOLUTION:
+	Nested Functions are Functions inside a function.
+
+4. What arguments do you need for the SQL function concat_ws()?
+SOLUTION: 
+	It means Concatenate with separator.  CONCAT_WS(separator, string1, string2) So you need a separator that places between string1 and string2.  ‏
+
+5. Why is it a bad idea to store age in years as a database field?  What should we do instead?
+SOLUTION:
+	One reason is if we store age by years only, it takes more time to retrieve their birthdate since the age can change next year and the following years to come.  Rather we should input the birthdate to see how old a person is.  
+
+6. Why do aggregate functions cause errors when used directly in WHERE clauses?
+SOLUTION:
+	Can't Aggregate directly because the WHERE clause happens before the Aggregate function is run.  
+
+7. Suppose MySQL had a function REVERSECASE(), which took a string (eg, the lastname field from Members) parameter and returned a new string which all letters which were in lower case in the original string were rendered in upper case and vice versa.  Would this be an aggregate function?  How can you tell?
+
+SOLUTION: 
+	yes, since the function returns all the letters, the keyword being All letters, the function is therefore an Aggregate function since it's a function that deals with input as a collection of data.  
+
+8. Suppose MySQL contained a function COUNTNULL(), which returned the number of null values in a particular field in 
+all the records for a table.  Would this be an aggregate function?  How can you tell?
+
+SOLUTION: 
+	By aggregate function standards, it wouldn't be because aggregate functions ignores NULL values.  
+
+Section 2 SQL To English, 4 pts each
+Explain in plain English what each query does.
+
+9. SELECT DAYOFWEEK(DATE_ADD(CURDATE(), INTERVAL 10 DAY));
+
+SOLUTION:
+	Print the day of the week ten days from today.
+
+10. SELECT DISTINCT A.Artistname FROM Titles T JOIN Artists A ON T.ArtistID = A.ArtistID WHERE A.Webaddress IS NULL;
+SOLUTION:
+	
+	Show the Recording Artist's track that have no webaddress.
+
+11. SELECT COUNT(*) FROM Titles JOIN Artists A USING(ArtistID) WHERE A.Webaddress IS NULL;
+SOLUTION: 
+	Show how many Artists have no Web Addresses.
+
+
+
+
+
+
+
+
+
+//-----function definition
+DATE_ADD() Add time values (intervals) to a date value
+
+DAYOFWEEK(date)
+Returns the weekday index for date (1 = Sunday, 2 = Monday, …, 7 = Saturday). These index values correspond to the ODBC standard.
+

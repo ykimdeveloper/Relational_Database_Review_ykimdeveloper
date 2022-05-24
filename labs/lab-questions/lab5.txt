@@ -1,0 +1,71 @@
+CS122 Lab 5 
+
+Section 1: Short Answers, 2 pts each
+
+1. a) (1 pt) What is the numeric index of the first character in a string in SQL?  
+An example of a correctly expressed but wrong answer is 5.
+1. b) (2 pt) What is the numeric index of the n in the SQL string "John Hurley"?
+
+2. Suppose we want to use a SQL function without referring to any data from an database.  For example, we may want to use greatest() find the largest number in a 
+list.  Before the name of the function, we will need to use the _____________ keyword.  (Example wrong answer: WHERE.) 
+
+3. What are nested functions?
+
+4. What arguments do you need for the SQL function concat_ws()?
+
+5. Why is it a bad idea to store age in years as a database field?  What should we do instead?
+
+6. Why do aggregate functions cause errors when used directly in WHERE clauses?
+
+7. Suppose MySQL had a function REVERSECASE(), which took a string (eg, the lastname field from Members) parameter
+and returned a new string which all letters which were in lower case in the original string were rendered in upper case
+and vice versa.  Would this be an aggregate function?  How can you tell?
+
+8. Suppose MySQL contained a function COUNTNULL(), which returned the number of null values in a particular field in 
+all the records for a table.  Would this be an aggregate function?  How can you tell?
+
+
+Section 2 SQL To English, 4 pts each
+Explain in plain English what each query does.
+
+9. SELECT DAYOFWEEK(DATE_ADD(CURDATE(), INTERVAL 10 DAY));
+
+10. SELECT DISTINCT A.Artistname FROM Titles T JOIN Artists A ON T.ArtistID = A.ArtistID WHERE A.Webaddress IS NULL;
+
+11. SELECT COUNT(*) FROM Titles JOIN Artists A USING(ArtistID) WHERE A.Webaddress IS NULL;
+
+
+
+Section 3 English To SQL, 12 points each
+
+
+12. Show the first and last names of each salesperson in a single column, with the first and last names separated 
+by a space.  Give the column the heading "Employee Name."
+
+13. Find the circumference of a circle of radius 5 and show the answer to five places past the decimal point.
+
+14. Find the date on which a person who turns 21 today was born. Write your query so that it will work correctly no 
+matter when it is run.
+
+15. Report the time in years since each artist was entered into the database (EntryDate).  Assume each year contains 365.25 days.  Write your query so that it will work at 
+any date when the query is run.
+
+16. Show the average age in years of all members.
+
+17. List the sales id of each salesperson and whether or not s/he represents a studio whose contact person is Manuel Austin.
+Order the results by sales id and use a column alias in the output.  The output should look like this:
+
++---------+-------------------------+
+| salesid | Manuel?                 |
++---------+-------------------------+
+|       1 | doesn't work with Manuel|
+|       2 | works with Manuel       |
+|       3 | doesn't work with Manuel|
+|       4 | doesn't work with Manuel|
++---------+-------------------------+
+4 rows in set (0.00 sec)
+
+
+Beware: if your output shows any salesid more than once, or if it omits any salesperson, YOUR QUERY IS NOT CORRECT!  Review question 5 in part A.
+
+

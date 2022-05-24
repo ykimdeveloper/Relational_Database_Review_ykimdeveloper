@@ -1,0 +1,60 @@
+CS122, Lab 3
+Part A, due at the end of the lab period
+
+Section I, Join Types, 1 point each
+For each query, state the type of join (eg, cross join or named column join) that is being used.
+
+1. SELECT Artists.ArtistID, Titles.Title FROM Artists JOIN Titles ON(Artists.ArtistID = Titles.ArtistID);
+2. SELECT Artists.ArtistID, Titles.Title FROM Artists, Titles WHERE Artists.ArtistID = Titles.ArtistID;
+3. SELECT * FROM Titles JOIN Studios;
+4. SELECT M.LastName, M.FirstName, A.ArtistName FROM Members M JOIN XRefArtistsMembers X USING(MemberID) JOIN Artists A USING(ArtistID);
+
+Section II, SQL To English, 4 pts each
+
+Express in one or two sentences what each SQL query does.  For example, a correctly formatted answer would be "This query lists the last name of 
+each member with his or her postal code."
+
+Note: If you copy a query which happens to contain a line break in the assignment file and paste it to the MySQL command line, MySQL may be
+confused by the apparent end of the query at the line break.  If this happens, you will receive an uninformative error message.  If necessary, 
+copy the query into another text editor window, delete the line break, and copy the query from there.
+
+5. SELECT * FROM Members JOIN Salespeople;
+
+6. SELECT R.TrackTitle, T.Title FROM Tracks R JOIN Titles T USING(TitleID) JOIN Studios S USING(StudioID) WHERE Studioname = 'MakeTrax';
+
+7. SELECT ST.StudioName, SA.Initials FROM Studios ST INNER JOIN SalesPeople SA WHERE ST.SalesID = SA.SalesID;
+
+8. SELECT G.Genre, T.Title FROM Genre G JOIN Titles T ON(G.Genre = T.Genre) ORDER BY G.Genre;
+
+
+Section III, One-Paragraph Answer, 10 Points
+
+Answer in one well-structured paragraph.  A good paragraph contains a general thesis, at least three sentences making points that support 
+the thesis, and a concluding sentence.  You should consult the lecture notes and the textbook, and you may also consult Wikipedia, 
+MySQL's website, or other sources.  However, DO NOT COPY ANY TEXT.
+
+9. What does it mean to say that SQL is an "open standard with some variations in implementation?" 
+
+Section IV, English To SQL, 10 points 
+
+10. List the first and last names of all members of Sonata in alphabetical order by last name.
+
+
+Part B, see CSNS for due date
+English To SQL, 10 points each
+
+11. List the salesid and last name of each salesperson who represents at least one member.
+
+12. List the salesid and last name of each salesperson who represents at least one member whose birthday is in January.
+
+13. List the names of the studios with the tracks which were recorded at each one.  Sort the output in order of 
+studioID.
+
+14. List the names of all studios where non-alternative titles have been recorded.
+
+15a. (6 points) List the titles of all tracks on which (anyone named) Bryce Sanders plays
+15b) (4 points) How could you revise the query from the last question so that it would distinguish tracks featuring different people who all happen to 
+be named Bryce Sanders?  You will *not* be able to test this, since there is only one Bryce Sanders in the database.  
+
+16. Find the first name and last name of each member along with a calculated daytime phone number. The daytime phone number should be the work number
+if one is listed. If the work number is null, use the home phone number.  You will need to use CASE or IF.

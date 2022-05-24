@@ -1,0 +1,102 @@
+Section 2, SQL TO English, 4 points each.
+If you run these queries, use transactions and roll them back, or else reload the lyric database using lyric.sql afterwards!
+
+
+9. INSERT INTO Salespeople VALUES(5, "Montbatten", "Liz", "ewm", 50.00, 1);
+
+Solution:
+Add Montbatten Liz as SalesID 5 with a Supervisor by Bob Bentley which is SalesID 1.  Montbatten's initials is ewm and her Base pay is 50.00.  
+
+10. UPDATE Salespeople SET Supervisor = 4 WHERE lastname = "Montbatten" and firstname = "Liz"; 
+
+Solution:
+The sales Person Montbatten Liz will now have Liz as First and Montabatten as Last Name whom will be supervised by Scott Bull which SalesID 4.  
+
+
+Section 3 English To SQL, 10 points each.  Write the SQL/DML/DDL commands to accomplish the task described in each question. 
+
+Use transactions, so that you can easily recover the original data.  If a rollback does not work for some reason, you can run lyric.sql again.
+
+
+11. a) Delete all the artists which have not recorded any jazz titles (remember the distinction between this and deleting those that have recorded non-jazz titles!) 
+
+Solution: 
+DELETE FROM Artists WHERE ArtistID = ANY ( SELECT ArtistID FROM Titles WHERE Genre != "jazz");
+
+
+b) You decide not to delete the members of these artists since they might join other artists in the future.  What else should  you do in the DB when you delete the artists?
+
+Solution:
+DELETE FROM XrefArtistsMembers WHERE ArtistID = ANY(SELECT ArtistID FROM Titles WHERE Genre!= 'jazz');
+
+
+Part B, see CSNS for due date
+
+12. Insert a new record into the members table using any valid data and update XrefArtistsMembers to make the person a member of Sonata.
+	 
+SOLUTION:
+INSERT INTO Members(MemberID, FirstName, LastName) VALUES (32, "Mike", "Tyson");
+INSERT INTO XrefArtistsMembers(MemberID, ArtistID) VALUES (32, (SELECT ArtistID FROM Artists WHERE ArtistName = "Sonata"));
+
+
+13. Change the emails for all members of Sonata lastname@sonata.org, where lastname is the member's actual last name.
+
+SOLUTION:
+UPDATE Members SET Email = CONCAT(LastName, "@sonata.org") WHERE ( MemberID = ANY (SELECT MemberID FROM XrefArtistsMembers WHERE ArtistID = (SELECT ArtistID FROM Artists WHERE ArtistName = "Sonata")));
+
+
+Section 3: Multi-Step Problem, 8 points each
+You are implementing a database for a retail shoe store. You may create a new database if you'd like (see the original instructions for setting up lyric), but it will be easier to simply add the new tables to the Lyric DB.
+
+Include in your answers all the queries and commands you use.  Always verify that each step worked as you intended.
+If some command does not accomplish what you want, everything after it is likely to fail also. 
+
+
+14.  Create a table called "Products" with columns called ItemNumber, ItemName, Price, and SupplierID.  Give all of these columns appropriate data types.  Use a float or real data type for the price, but be sure the format you use can accommodate 2 digits after the decimal point and can hold prices up to at least $999.99.   Set ItemNumber as the Primary key and define the column so that a unique item number is generated automatically.  Insert five products with reasonable values for the other data fields (for example, one product might be called "Men's Running Shoes", cost $59.99, and come from Supplier # 1.)  Make sure that at least two of the products have supplierID 1 and at least one has supplierID 2. 
+
+
+
+SOLUTION:
+CREATE TABLE Products ( ItemNumber INT NOT NULL PRIMARY KEY AUTO_INCREMENT,ItemName VARCHAR(32) NOT NULL UNIQUE, Price FLOAT(10, 2), SupplierID INT NULL);
+	
+INSERT INTO Products VALUES(0, "Men's Running Shoes", 59.99, 1);
+INSERT INTO Products VALUES(0, "Men's Dress Shoes", 99.99, 1);
+INSERT INTO Products VALUES(0, "Men's Basketball Shoes", 129.99, 1);
+INSERT INTO Products VALUES(0, "Women's Running Shoes", 69.99, 2);
+INSERT INTO Products VALUES(0, "Women's Dress Shoes", 118.99, 2);
+INSERT INTO Products VALUES(0, "Women's Basketball Shoes", 129.99, 2);
+
+
+15.  Create another table called "Suppliers" with the following columns: SupplierID, SupplierName, ContactPhone.  Give the columns appropriate data types.  Use a char or varchar for the ContactPhone.  Choose the appropriate primary key and set it to generate an ID automatically.  Insert three suppliers with reasonable values for the data fields (for example, SupplierName = "Bigfoot Shoes" and ContactPhone = '626-555-1212').
+
+SOLUTION:
+CREATE TABLE Suppliers ( SupplierID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, SupplierName VARCHAR(32) NOT NULL UNIQUE, ContactPhone VARCHAR(20));
+INSERT INTO Suppliers VALUES(0, "Bigfoot Shoes", "626-555-1212");
+INSERT INTO Suppliers VALUES(0, "Godzilla Shoes", "213-444-9999");
+INSERT INTO Suppliers VALUES(0, "Avenger Shoes", "323-987-6543");
+
+
+16.  Write a query that shows the number of products supplied by each supplier, also showing the supplier name.
+
+SOLUTION:
+SELECT prod.SupplierID, supp.SupplierName, count(ItemName) FROM Suppliers supp JOIN Products prod ON (supp.SupplierID = prod.SupplierID) GROUP BY prod.SupplierID; 
+
+17. a) Add a new constraint to the Products table that requires the ItemName to be unique.
+b) Add a new column called "Description" to the Products table.  Update the products to include descriptions.
+c) Rename the ItemNumber column in the Products table to ProductID.
+
+SOLUTION:
+a)ALTER TABLE Products ADD CONSTRAINT unique UNIQUE (ItemName);
+b)ALTER TABLE Products ADD COLUMN Description VARCHAR(32) NULL;	
+c) ALTER TABLE Products CHANGE ItemNumber ProductID INT;
+
+18. a) Delete supplier 1
+b) Do whatever is required to maintain consistency after execution of 5a.
+do you mean 18a? for 18b?
+
+SOLUTION:
+a) DELETE FROM Suppliers WHERE SupplierID = 1;
+b) DELETE FROM Products WHERE SupplierID = 1;
+
+
+

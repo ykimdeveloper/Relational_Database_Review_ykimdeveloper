@@ -1,0 +1,76 @@
+CS122 Lab 2 
+
+Part A, due at the end of the lab period
+
+Short Answers, 3 points each
+
+1. Review the format for dates in SQL, then express the date "1979-10-11" in words.  For example, two correctly formatted 
+but wrong answers would be "the Fourth of July, 1900" and "December Twenty-Fifth, 2000."
+
+2. Express the date March 13, 2014 in SQL format.  Don't forget the quotes.
+
+3. What is the primary key of the Members table?
+
+4. Why isn't LastName a possible primary key for the Members table?
+
+5. What is the primary key of the Tracks table?  Why?
+
+6. Why is the primary key described in your answer to the last question the only possible primary key for the table?
+ 
+7.  The Members table contains a foreign key.  Which field is it, and which to which table is it a foreign key?
+
+8. What is the foreign key in the Tracks table that references the Titles table?  How do we know that this field will
+match each track with exactly one title?
+
+9. Why do we need three separate tables to match members to artists?  Note the difference between this question 
+and the related question in lab 1.
+
+10. Consider how the relationship between members and artists differs from the relationship between tracks and 
+titles.  Why don't we need a third table to match tracks and titles?
+   
+11. Could we add a new record to the salespeople table with the following information? If not, why not?
+	SalesID = 5 FirstName = "Bob" LastName = "Bentley" Initials = "bbb" Base = 100 Supervisor = 4
+
+12. Could we add a new record to the salespeople table with the following information? If not, why not?
+	SalesID = 3 FirstName = "Liz" LastName = "Montbatten" Initials = "ewm" Base = 100 Supervisor = 4
+
+13. Consider this SQL query:
+	SELECT (NULL IS NOT NULL) != (NULL = TRUE);
+Why does this query return NULL?  Answer with either a few sentences or a simplified proof.
+
+
+SQL To English, 4 points each
+
+State in English what the SQL query does.  Do not use any database lingo; instead, explain what the query does in language anyone could understand.
+Example: "Find the last name of each member located in New York"		
+
+14. SELECT LastName, Base FROM Salespeople;
+ 
+15. SELECT * FROM Tracks ORDER BY TrackTitle DESC;
+
+16. SELECT FirstName from Members WHERE FirstName > "Bryce";
+
+17. SELECT ArtistName FROM Artists WHERE WebAddress IS NULL;
+Consider carefully what a NULL value in a field represents.
+
+
+Part B
+See CSNS for due date
+
+English To SQL, 9 points each
+
+Write SQL queries to do each of the following tasks.  Do not turn in the output, just the queries.  TEST your work before you turn it in.  
+A typical answer would be similar to a question from section I.
+
+1. List the last names and memberIDs of all members who are assigned to salesperson #2.
+
+2. List the names of all jazz titles.
+
+3. List the names of all titles that are NOT in the alternative genre.
+
+4. Show each region in which there is at least one member.  List each region only once.
+
+5. Show each region in which there is at least one female member.  List each of these
+regions only once each.
+  
+  

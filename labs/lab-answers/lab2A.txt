@@ -1,0 +1,100 @@
+CS122 Lab 2 
+
+PART A
+--------------------------------------------------------------------------- 
+1. Review the format for dates in SQL, then express the date "1979-10-11" in words.  For example, two correctly formatted but wrong answers would be "the Fourth of July, 1900" and "December Twenty-Fifth, 2000."
+
+SOLUTION 
+"October Eleven, 1979"
+
+2. Express the date March 13, 2014 in SQL format.  Don't forget the quotes.
+
+SOLUTION
+"2014-03-13"
+
+3. What is the primary key of the Members table?
+
+SOLUTION
+MemberId
+
+4. Why isn't LastName a possible primary key for the Members table?
+
+SOLUTION
+It's not a possible primary key because there can be several Artist members with the same names such as David Jones from the Monkees and David Jones AKA David Bowie.  
+
+5. What is the primary key of the Tracks table?  Why?
+
+SOLUTION
+Primary keys are unique and TrackNum and TitleID would both be unique together and since track numbers can be similar, having the TrackID with TrackNum would both become unique which would make them primary.  
+
+6. Why is the primary key described in your answer to the last question the only possible primary key for the table?
+
+SOLUTION
+The other fields in the Tracks menu could have the same strings or values that are similar to each other such as several MP3 fieds having the value of 1 or the track title having the same song title in a christmas song.  
+
+7.  The Members table contains a foreign key.  Which field is it, and which to which table is it a foreign key?
+
+SOLUTION
+SalesID is the foriegn key to which it references the primary key in an another table that is the SalesPeople table.  
+
+8. What is the foreign key in the Tracks table that references the Titles table?  How do we know that this field will match each track with exactly one title?
+
+SOLUTION
+The foreign key in the Tracks table is TitleID.  The TitleID is the primary key for that table which is a unique field for this table and so therefore can only have exactly one match.  
+
+9. Why do we need three separate tables to match members to artists?  Note the difference between this question and the related question in lab 1.
+
+SOLUTION
+If the same name is in many Artist such as Dave Grohl is a member to many artist bands such as Nirvana, Foo Fighters, Queens of the Stone Age and Them Crooked Vultures, we need to figure out the memberID Dave Grohl to which Artist we are specifially listing.  So therefore we need all three seperate tables since it would be a many to many relationship because there exist a third factor of differentiating 1.one to many, 2.many to one and 3. many to many relationship.  Also if you take away the XrefArtistsMember table and insert ArtistID inside Members table, the MemberID and ArtistID wouldn't have a unique relationship.    
+
+
+10. Consider how the relationship between members and artists differs from the relationship between tracks and titles.  Why don't we need a third table to match tracks and titles?
+  
+SOLUTION
+You don't need a third table because the relationship between the Tracks and Titles table is one to many and many to one.  There's no need for another relationship or another table.  Each tracks can have one title and titles can have many tracks.     
+
+11. Could we add a new record to the salespeople table with the following information? If not, why not?
+	SalesID = 5 FirstName = "Bob" LastName = "Bentley" Initials = "bbb" Base = 100 Supervisor = 4
+
+SOLUTION
+Yes, no one exists therefore we can input a new Sales ID. 
+
+12. Could we add a new record to the salespeople table with the following information? If not, why not?
+	SalesID = 3 FirstName = "Liz" LastName = "Montbatten" Initials = "ewm" Base = 100 Supervisor = 4
+
+SOLUTION
+no, that SalesID already exits. 
+ 
+13. Consider this SQL query:
+	SELECT (NULL IS NOT NULL) != (NULL = TRUE);
+Why does this query return NULL?  Answer with either a few sentences or a simplified proof.	
+
+SOLUTION
+SELECT (NULL IS NOT NULL) != (NULL = TRUE);
+SELECT (      False     ) != (    NULL   );
+Anything that is with != or = operators comparison with NULL will become NULL.
+
+14. SELECT LastName, Base FROM Salespeople;
+
+SOLUTION
+List all the Sales Associates by Last Names along with their Base pay.   
+ 
+15. SELECT * FROM Tracks ORDER BY TrackTitle DESC;
+
+SOLUTION
+Output all the track titles by descending sort order alphabetically.  
+
+16. SELECT FirstName FROM Members WHERE FirstName > "Bryce";
+
+SOLUTION
+Print out first names of musicians where names are alphabetically greater than Bryce including the name Bryce.  
+
+17. SELECT ArtistName FROM Artists WHERE WebAddress IS NULL;
+Consider carefully what a NULL value in a field represents.
+
+SOLUTION
+List names of Artists who do not have a web address in the database.  
+
+
+  
+  

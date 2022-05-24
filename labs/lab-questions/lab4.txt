@@ -1,0 +1,67 @@
+CS 122 Lab 4
+
+Part A, due at the end of the lab period. 
+
+
+I. Short Answers, 2 points each
+
+Answer the following questions in no more than three sentences each:
+
+1) SQL uses a two-step process to perform joins.  What are the two steps?
+
+2) What is the difference between an outer join and an inner join?
+
+3) What is the difference between a left join and a right join?
+
+4) How can you find the records in one table for which there are no 
+records in a second table that match based on a join condition?
+
+5) Suppose you write one query that finds the names of all artists which have members who were not born in the 1960s 
+and another query to find the names of all artists which do not have any members born in the 1960s.  What would be 
+true of any artist that appeared in the results of the first query but not in the results of the second?
+
+6)  Why do these two queries return the same information in the lyric database?
+ 
+SELECT M.LastName, A.ArtistName FROM members M LEFT JOIN XRefArtistsMembers X USING(MemberID) JOIN Artists A on X.ArtistID = A.ArtistID;
+And
+SELECT M.LastName, A.ArtistName FROM members M INNER JOIN XRefArtistsMembers X USING(MemberID) JOIN Artists A on X.ArtistID = A.ArtistID;
+
+7) What are two uses for Self Joins?
+
+8) Why are table aliases needed in Self Joins? 
+
+ 
+ II. SQL to English, 8 points each
+
+Describe what each query will produce.  Don't list the actual data, just explain what the query returns.
+
+Example:
+
+Question: SELECT M.MemberID, M.FirstName, M.LastName, S.SalesID FROM Members M LEFT JOIN SalesPeople S USING(SalesID)
+
+Answer: This query will return the MemberID, first name, and last name of each member.  For each member who has an assigned sales person, it will also report the SalesID of the sales person for each member.
+
+
+9) SELECT T.Title, T.TitleID, G.Genre FROM Titles T RIGHT JOIN Genre G ON T.Genre = G.Genre
+
+10) SELECT G.Genre, T.TitleID, T.Title FROM Genre G LEFT JOIN Titles T ON G.Genre = T.Genre;
+
+11) SELECT G.Genre FROM Genre G LEFT JOIN Titles T ON G.Genre = T.Genre WHERE T.TitleID IS NULL;
+
+ 
+Part B, see CSNS for due date
+
+III. English to SQL, 15 points each
+
+Write a SQL query that works in MySQL to find the following information:
+
+
+12) Show the names of all artists that have not recorded any titles.  Hint: first run the following query and see what you get: SELECT * FROM Titles WHERE ArtistID is null
+
+13) List each salesperson by first name with his or her supervisor's first name.  Use "AS" clauses to show the fields 
+as "subordinate" and "supervisor" respectively.  Include any salespeople who do not have supervisors.  Order the results 
+by first name.
+
+14) Show every salesperson's SalesID and the studios, if any, to whom they are assigned.  If a salesperson is not assigned to any studios, show his/her SalesID anyway.
+
+15) Show the names of all artists for which the lead source was direct mail and which have not recorded any titles. 

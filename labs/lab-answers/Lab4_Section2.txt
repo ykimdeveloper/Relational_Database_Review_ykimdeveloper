@@ -1,0 +1,32 @@
+II. English to SQL, 15 points each
+
+Write a SQL query that works in MySQL to find the following information:
+
+12) Show the names of all artists that have not recorded any titles.  Hint: first run the following query and see what you get: SELECT * FROM Titles WHERE ArtistID is null
+
+SOLUTION: 
+SELECT A.ArtistName FROM Artists A LEFT JOIN Titles T USING(ArtistID) where T.Title IS NULL;
+
+
+13) List each salesperson by first name with his or her supervisor's first name.  Use "AS" clauses to show the fields as "subordinate" and "supervisor" respectively.  Include any salespeople who do not have supervisors.  Order the results by first name.
+ 
+SOLUTION:
+SELECT Sales.FirstName AS Subordinate, Sales2.FirstName AS Supervisor 
+FROM SalesPeople Sales JOIN SalesPeople  USING(SalesID)  
+LEFT JOIN SalesPeople Sales2 ON Sales.Supervisor = Sales2.SalesID
+ORDER BY Sales.FirstName;
+
+14) Show every salesperson's SalesID and the studios, if any, to whom they are assigned.  If a salesperson is not assigned to any studios, show his/her SalesID anyway.
+
+SOLUTION:
+SELECT SP.SalesID, S.StudioName FROM SalesPeople SP LEFT JOIN STUDIOS S USING(SalesID) ORDER BY SP.SalesID;
+
+15) Show the names of all artists for which the lead source was direct mail and which have not recorded any titles. 
+
+SOLUTION:
+SELECT A.ArtistName, T.Title, A.LeadSource FROM Artists A 
+LEFT JOIN Titles T ON (A.ArtistID = T.ArtistID AND T.StudioID IS NULL) WHERE A.LeadSource = 'DirectMail';
+
+
+
+

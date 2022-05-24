@@ -1,0 +1,14 @@
+2 be careful: we are looking at Titles, not songs.  Here is a clearer answer: 
+The database does not contain any titles by the artist
+3b better answer:
+a natural join would join records from Ships and Products based on the Ship's ID matching the Product's ID.  This probably does not mean anything.
+3c. Just add CargoID (foreign key to Products) to Ships.  No need for a foreign key from Products to Ships, which would make it hard to show multiple ships carrying the same kind of cargo.
+3d clearer answer:
+add a cross-referencing table, similar to XrefArtistsMembers
+5 -1 show the *birthday* of the oldest female member
+6 clearer answer:
+Show each artist that has at least one title in the database with the name of each of their titles and the studios where their titles were recorded.
+7 -2 prompt says that each employee only works in one kiosk, not that only one employee works at each kiosk.  Therefore, Employees should have a foreign key to Kiosks, not
+the other way around.
+10 Your solution has a redundant join.  Just this is enough:
+SELECT Sales.SalesID, Sales.FirstName  FROM SalesPeople Sales JOIN SalesPeople Sales2 ON Sales.Supervisor = Sales2.SalesID WHERE Sales2.FirstName = 'Scott' AND Sales2.LastName = 'Bull';

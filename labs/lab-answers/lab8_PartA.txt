@@ -1,0 +1,104 @@
+CS 122 Lab 8 
+
+Section 1: Short Answers, 2 pts each
+
+1. How can a database manager ensure that applications that use his/her database will still work correctly even if the tables in the database are redesigned?
+
+Solution:
+	You can store queries with VIEWS and use them as actual tables. So thats why Application Programmers don't have to worry when Database Managers change tables because they can rewrite the VIEWS and the interface doesbn't change.  
+
+2. a) Subqueries are also called _______________ queries.
+
+Solution:
+	inner queries
+ 
+b) A query that contains a subquery is called a(n) ______________ query
+
+Solution:
+	outer query
+
+
+3. a) What punctuation mark is used to demarcate subqueries?
+
+Solution:
+	() using the paranthesis
+ 
+b) If one subquery is placed inside another subquery, the queries are called ________________ subqueries
+
+Soliution:
+	Nested subqueries
+
+4. How do correlated subqueries differ from other subqueries?
+
+Solution:
+	Correlated Subqueries uses data info from the outer queries and are dependant from outer queries.  Correlated means dpendant and so you can't just run inner queries.   
+
+5. What is the difference between IN and EXISTS before a sub-query?
+
+Solution:
+	Exists tests the existence of data info if the subquery returns True if it exists or False if it isn't there. 
+	IN checks values and tests expressions to see if it matches any items in a list.
+
+6. What is wrong with this code?  Do not just retype the error message, explain the problem.
+SELECT T.Title FROM Titles T WHERE T.ArtistID = (SELECT A.ArtistID FROM Artists A WHERE A.Country = "USA");
+
+Solution:
+	The subquery returns more than one value because there are more artists from USA and also when you use an outer query to test a value with more than one returns, using IN would be better.
+
+
+Suppose we have two tables, named "monsters" and "cars", with the following data:
+
+Monsters:
++----+--------------+--------+
+| id | type         | weight |
++----+--------------+--------+
+|  1 | Godzilla     |   5500 |
+|  2 | Smog Monster |   1000 |
+|  3 | Yeti         |    900 |
+|  4 | Yeti         |   1100 |
++----+--------------+--------+
+
+Cars:
++----+--------+----------------+--------+
+| id | make   | model          | weight |
++----+--------+----------------+--------+
+|  1 | Toyota | Camry          |   3200 |
+|  2 | Mazda  | 323            |   2000 |
+|  3 | Lincoln| Town Car       |   6200 |
+|  4 | Ford   | Crown Victoria |   5800 |
++----+--------+----------------+--------+
+
+7.  What would be the output from the following query?
+SELECT make, model FROM Cars WHERE weight > ALL (SELECT weight FROM Monsters);
+
+Solution:
+	Ford, Crown victoria 
+	Lincoln, Town Car
+
+8.  What would be the output from the following query?
+ SELECT make, model FROM Cars WHERE weight < ANY (SELECT weight FROM Monsters);
+
+Solution:
+	Ford, Crown victoria 
+	Lincoln, Town Car
+
+
+ 
+Section 2 SQL To English, 4 pts each.  Describe in non-technical language what each query does.
+
+9. SELECT sa.LastName FROM SalesPeople sa WHERE sa.SalesID IN
+ (SELECT s.SalesID FROM Studios s UNION SELECT m.SalesID FROM Members m) 
+
+Solution:
+	Show the Sales Person that works with either Studios and Members.  
+
+10. SELECT Count(*) FROM Artists WHERE ArtistName LIKE "L%";
+
+Solution:
+	How many Artist's Names have L in the beginning. 
+
+11. SELECT ArtistName FROM Artists A WHERE EXISTS (SELECT ArtistID, Count(MemberID) FROM XrefArtistsMembers X 
+WHERE X.ArtistID= A.ArtistID GROUP BY ArtistID HAVING Count(MemberID)>2);
+
+Solution:
+	Show the Artist Names of members of more than two.

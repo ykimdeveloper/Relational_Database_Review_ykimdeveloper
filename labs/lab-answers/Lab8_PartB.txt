@@ -1,0 +1,152 @@
+Section 3 English To SQL, 12 points each.  Write a SQL query to retrieve the information requested.
+
+
+12. Show the names of all artists which have at least one female member each.  Use one or more subqueries.  Do not use any joins.
+
+Solution: 
+
+SELECT ArtistName 
+FROM Artists 
+WHERE ArtistID IN
+(
+  SELECT ArtistID 
+  FROM XrefArtistsMembers
+  WHERE MemberID IN
+  (
+    SELECT MemberID 
+    FROM Members 
+    WHERE Gender = "f"
+  )
+);
+
+------------Same as above without tabs and spaces-----------
+
+SELECT ArtistName FROM Artists WHERE ArtistID IN (SELECT ArtistID FROM XrefArtistsMembers WHERE MemberID IN ( SELECT MemberID FROM Members WHERE Gender = "f"));
+
+
+
+
+
+13. Find the last names of all members who live in California with the names of all studios that are located in California in a single list.
+
+SELECT memb.LastName AS 'located in California?'
+FROM Members memb WHERE Region = 'Ca'
+UNION 
+SELECT stud.StudioName
+FROM Studios stud WHERE Region = 'CA';
+
+
+------------Same as above without tabs and spaces-----------
+
+SELECT memb.LastName AS 'located in California?' FROM Members memb WHERE Region = 'Ca' UNION SELECT stud.StudioName FROM Studios stud WHERE Region = 'CA';
+
+
+
+
+14. Find the memberID and birthday of every member in Vermont (VT) who is older than all the members from NY.
+
+Solution:
+
+SELECT Mem.MemberID, Mem.Birthday 
+FROM Members Mem 
+WHERE Mem.Region = 'VT' AND Birthday < ALL 
+(
+	SELECT N.Birthday 
+	From Members N 
+	Where Region = 'NY'
+);
+
+
+------------Same as above without tabs and spaces-----------
+
+SELECT Mem.MemberID, Mem.Birthday 
+FROM Members Mem WHERE Mem.Region = 'VT' AND Birthday < ALL (SELECT N.Birthday From Members N Where Region = 'NY');
+
+
+
+
+15. Find the trackTitles of all tracks recorded by artists which were entered into the database (that is, have entrydates) after September 1, 2003.  Use one or more joins; do *not* use any subqueries.
+
+Solution:
+SELECT Trk.TrackTitle 
+FROM Tracks Trk  
+JOIN Titles Tt ON (Trk.TitleID = Tt.TitleID) 
+JOIN Artists Arts on (Tt.ArtistID = Arts.ArtistID) 
+WHERE Arts.EntryDate > '2003-09-01';
+
+
+------------Same as above without tabs and spaces-----------
+
+SELECT Trk.TrackTitle FROM Tracks Trk  JOIN Titles Tt ON (Trk.TitleID = Tt.TitleID) JOIN Artists Arts on (Tt.ArtistID = Arts.ArtistID) WHERE Arts.EntryDate > '2003-09-01';
+
+
+
+
+
+
+16. Find the same data selected in the last question.  This time, use one or more subqueries and do *not* use any joins.
+
+Solution:
+
+SELECT Trk.TrackTitle 
+FROM Tracks Trk 
+WHERE Trk.TitleID IN
+( 
+SELECT Tt.TitleID 
+FROM Titles Tt 
+WHERE Tt.ArtistID IN
+(
+	SELECT Arts.ArtistID 
+	From Artists Arts 
+	WHERE Arts.EntryDate > '2003-09-01'
+));
+
+
+------------Same as above without tabs and spaces-----------
+
+SELECT Trk.TrackTitle FROM Tracks Trk WHERE Trk.TitleID IN( SELECT Tt.TitleID FROM Titles Tt WHERE Tt.ArtistID IN(
+SELECT Arts.ArtistID From Artists Arts WHERE Arts.EntryDate > '2003-09-01'));
+
+
+
+
+
+17a. (9 pts) Show the name of each artist which has recorded at least one title at a studio where The Bullets have recorded.  Use subqueries, not joins.
+
+SELECT ArtistName 
+FROM Artists 
+WHERE ArtistID IN( 
+SELECT ArtistID 
+FROM Titles 
+WHERE StudioID IN( 
+SELECT StudioID 
+FROM Studios 
+WHERE StudioID IN( 
+SELECT StudioID 
+FROM Titles 
+WHERE ArtistID IN ( 
+SELECT ArtistID 
+FROM Artists 
+WHERE ArtistName ='The Bullets'))));
+
+
+
+------------Same as above without tabs and spaces-----------
+
+SELECT ArtistName FROM Artists WHERE ArtistID IN( SELECT ArtistID FROM Titles WHERE StudioID IN( SELECT StudioID FROM Studios WHERE StudioID IN( SELECT StudioID FROM Titles WHERE ArtistID IN ( SELECT ArtistID FROM Artists WHERE ArtistName ='The Bullets'))));
+
+
+
+
+
+
+17b. (1 pt) How could you verify that your answer to part a) is correct by examining the data in the tables using
+SELECT * FROM [tablename]?
+
+Solution:
+	Examining From Table Artists and Finding out "The Bullets" ArtistID is 10. Then Look at the Titles Table and look for "The Bullets" ArtistID and then find the STudioID which is 3.  Look For other Artists that recorded at StudioID 3 which is ArtistID 2 And then finally we find that the Name of the ArtistsName of ArtistID 2 which is Louis Holiday and so we return all the ArtistsNames inlucding The Bullets
+
+
+
+
+

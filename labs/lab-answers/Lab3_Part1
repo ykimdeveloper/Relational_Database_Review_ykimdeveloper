@@ -1,0 +1,59 @@
+CS122, Lab 3
+Part A, due at the end of the lab period
+
+1. SELECT Artists.ArtistID, Titles.Title FROM Artists JOIN Titles ON(Artists.ArtistID = Titles.ArtistID);
+
+SOLUTION: Named COLUMN JOIN
+
+
+2. SELECT Artists.ArtistID, Titles.Title FROM Artists, Titles WHERE Artists.ArtistID = Titles.ArtistID;
+
+SOLUTION: Equi-JOIN
+
+
+3. SELECT * FROM Titles JOIN Studios;
+
+SOLUTION: CROSS JOIN
+
+
+4. SELECT M.LastName, M.FirstName, A.ArtistName FROM Members M JOIN XRefArtistsMembers X USING(MemberID) JOIN Artists A USING(ArtistID);
+
+SOLUTION: Named COLUMN JOIN
+
+
+Section II, SQL To English, 4 pts each
+
+5. SELECT * FROM Members JOIN Salespeople;
+
+SOLUTION: Prints Out a Set of all possible components with matching fields from Memebers table and SalesPeople table.   
+
+
+6. SELECT R.TrackTitle, T.Title FROM Tracks R JOIN Titles T USING(TitleID) JOIN Studios S USING(StudioID) WHERE Studioname = 'MakeTrax';
+
+SOLUTION: Print out the the TrackTitle from the Tracks table and the Title from the Titles table where they both match the StudioID from the Studios table.  
+
+
+7. SELECT ST.StudioName, SA.Initials FROM Studios ST INNER JOIN SalesPeople SA WHERE ST.SalesID = SA.SalesID;
+
+SOLUTION: Print out Studio's Field StudioName and SalesPeople Initials Field where SalesID are similar on both Studio and SalesPeople table.  
+
+
+8. SELECT G.Genre, T.Title FROM Genre G JOIN Titles T ON(G.Genre = T.Genre) ORDER BY G.Genre;
+
+SOLUTION: Print out the titles of songs that have the same genres fields from the Genre table as it's in the genre field in the Titles table.   And print out the genre and in order through the list from genre column.  
+
+Section III, One-Paragraph Answer, 10 Points
+
+9. What does it mean to say that SQL is an "open standard with some variations in implementation?" 
+
+SOLUTION: 
+	SQL (structured query langauge) implements open standards that is confirmed
+by ANSI/ISO (American National Standards Institute/ International Organization for Standardization) and it's not owned by just one company.  ANSI/ISO implements standard functions and descriptions on how to build like a blueprint.  This main reason is so that it can have the capability to work together and it promotes interoperability.  
+
+
+Section IV, English To SQL, 10 points 
+
+10. List the first and last names of all members of Sonata in alphabetical order by last name.
+SOULUTION:
+
+SELECT  M.FirstName, M.LastName, A.ArtistName FROM Members M JOIN XRefArtistsMembers X USING(MemberID) JOIN Artists A USING(ArtistID) where ArtistName = 'Sonata' ORDER BY M.LastName ;

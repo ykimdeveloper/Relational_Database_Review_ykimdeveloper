@@ -1,0 +1,94 @@
+CS122 Lab 9
+
+Part A, due at the end of the lab period
+
+Section 1: Short Answers, 3 pts each
+
+1. What are the three key statements used in managing transactions?
+
+Solution:
+	Begin
+	RollBack
+	Commit
+
+2. In the context of the acromym ACID used to describe the qualities of a database transaction, what does "atomicity" refer to?  
+Answer in one or two sentences.
+
+Solution:
+	The qualities of a transaction should be private so no other users can see until completed and it's done fully and self-consistent data.
+
+3. If you were to run the following DML command, what else would you have to do to maintain *consistency* in the DB? INSERT INTO Titles VALUES (8, 2, "Down Below the Cold, Cold Ground", 3, '0987654321', 'blues');
+
+Solution:
+	The main idea is to not have an orphan record.  So we need to be consistent with the following query to have unique keys to match and exist any foreign keys we might use.
+
+4. Why is "isolation" important in a database transaction?  Answer in one or two sentences. Isolation is used to rollback any changes.  
+
+Solution:
+	Isolation is important because the database needs to be done fully so by creating isolation, the new transactions won't create errors and also it can be undone with changes.  The purpose is so errors will be contained.  
+
+5. Recall that lecture 1 includes the following definition: "A database is a structured collection of persistent data"
+a) What does "persistent" mean in this context?
+b) In the context of the acromyn ACID, what does "durable" mean?
+c) Which of the key statments used in transactions ensures that changes are durable?	
+
+
+Solution:
+	a) Persistent data means it's not saved in a manner that will be erased after the computer is turned off.  So the data is available to the user even after the computer is turned off and turned on again.  
+
+	b) Durability is when the transaction is completed, the data of that transaction will exist and it's permanently saved into the database.  
+
+	c) Typing "Commit" will accept all changes.  
+
+
+
+6a) What is the name for a series of SQL/ DML / DDL commands stored in a file?  
+6b) What is the syntax for running such a file in a DBMS? (Examples of wrong but correctly formatted answers: run filename or run myfile.sql)
+
+Solution: 
+	6a) The name of the file is called "Script"
+	6b) source myfile.sql; 
+
+
+7. Suppose you are creating a database that will keep track of pets and their owners.  Each pet has only one owner, but one owner may have any number of pets.  How many tables would you need for the database, and what would each one contain?
+
+Solution:
+	Just Like the lyric tables,  Members is similar to Pets table, Artists is similar to Owners Table.  So lets create XrefOwnersPets table like the XrefArtistsMembers table.  The Pets table will have a primary key PetID that is a foreign key inside XrefOwnersPets and other foreign keys such as OwnerID and ResParty.  Inside Owners table will have the primary key OwnerID. 
+
+8.	Suppose you are creating a database that will keep track of movie monsters and the films in which they appear.  Each monster has a name and appears in 0 or more films, and one film may contain any number of monsters, including zero.  Each film has a name, and there may be more fields required. How many tables would you use in this database, and what would each one contain?  What would be the primary key of each table, and what foreign key(s) would they contain? 
+
+Solution:
+	Just Like the lyric tables,  Members is similar to Monsters table, Artists is similar to Films Table.  So lets create XrefFilmsMonsters table like the XrefArtistsMembers table.  The Members table will have a primary key MonsterID that is a foreign key inside XrefFilmsMonsters and other foreign keys such as FilmID and ResParty.  Inside Films table will have the primary key FilmID.  We can have many monsters like godzilla in several Films and to show that, Resparty count would go up incrementally for each film godzilla stars in.  
+
+Section 2, SQL TO English, 4 points each.
+If you run these queries, use transactions and roll them back, or else reload the lyric database using lyric.sql afterwards!
+
+
+9. INSERT INTO Salespeople VALUES(5, "Montbatten", "Liz", "ewm", 50.00, 1);
+
+Solution:
+	Add Montbatten Liz as SalesID 5 with a Supervisor by Bob Bentley which is SalesID 1.  Montbatten's initials is ewm and her Base pay is 50.00.  
+
+10. UPDATE Salespeople SET Supervisor = 4 WHERE lastname = "Montbatten" and firstname = "Liz"; 
+
+Solution:
+	The sales Person Montbatten Liz will now have Liz as First and Montabatten as Last Name whom will be supervised by Scott Bull which SalesID 4.  
+
+
+
+Section 3 English To SQL, 10 points each.  Write the SQL/DML/DDL commands to accomplish the task described in each question. 
+
+Use transactions, so that you can easily recover the original data.  If a rollback does not work for some reason, you can run lyric.sql again.
+
+
+
+11. a) Delete all the artists which have not recorded any jazz titles (remember the distinction between this and deleting those that have recorded non-jazz titles!) 
+
+Solution: 
+	DELETE FROM Artists WHERE ArtistID = ANY ( SELECT ArtistID FROM Titles WHERE Genre != "jazz");
+
+
+b) You decide not to delete the members of these artists since they might join other artists in the future.  What else should  you do in the DB when you delete the artists?
+
+Solution:
+	DELETE FROM XrefArtistsMembers WHERE ArtistID = ANY(SELECT ArtistID FROM Titles WHERE Genre!= 'jazz');

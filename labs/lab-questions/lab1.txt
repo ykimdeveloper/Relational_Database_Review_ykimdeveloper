@@ -1,0 +1,80 @@
+CS122 Winter 2016 Lab 1
+
+BEFORE YOU DO ANYTHING ELSE, send an email to hurley_j@sbcglobal.net requesting a cs1 account.  It may take me 
+a couple of days to respond to all the requests.  You will need the logon for part B of this lab.
+
+Part A, 4 points each
+Answer the questions in a plain text file (not a word processor document) and turn in on CSNS by the end of the lab 
+period in Week 1.
+
+1. 
+a) What is a Database Management System (DBMS)?
+b) Name three common Database Management Systems
+
+2. What is the definition of a particular database, defining the tables, relationships, constraints, etc. called?  
+You should be able to answer this question in one word.
+
+3. Consider the definition of database given in the first lecture.  What does the word "structured" mean in this context?
+
+4. Consider the definition of database given in the first lecture.  What does the word "persistent" mean in this context?
+
+5. SQL is described as a "nonprocedural" or "declarative" language.  What does that mean?  Don't just copy the text 
+from the lecture notes or Wikipedia, explain it in your own words.
+
+6. In which table are the names of the salespeople stored?
+
+7. In which table are the names of the members stored?
+
+8. Are there any fields that are common to both of the tables mentioned in the previous two questions?  
+If so, which ones?
+
+9. What does it mean if an artist's ArtistID appears as the ArtistID for a record in the titles table?
+
+10. What does it mean if a salesperson's SalesID appears as the SalesID for a studio in the Studios table?
+
+11. Suppose we want to find out the address of a studio.  Which table(s) do we need to check?
+
+12. Suppose we know the name of a title and want to find out the address of the studio where it was recorded.  Which 
+table(s) do we need to check?
+
+13. Why do the 6 records in the titles table only have 5 different ArtistIDs?
+
+14. Suppose we want to find out how many different artists have recorded titles at a particular studio, but
+we don't need any other information about the artists.  Which table or tables do we need to check, and which 
+fields will we need to examine?
+
+15. In order to find out which individuals are members of the Bullets, we need to check Artists, Members, and 
+XrefArtistsMembers.  Why do we need all three?
+
+
+Part B, 40 points
+See CSNS for due date
+
+Instructions for logging on to cs1 and running MySQL can be found in the handouts section of the course web page.
+
+Some of the logon passwords will include special characters like tilde (~) or the question mark.  Also 
+note that the pipe (|) is located on most keyboards directly over the enter key.  It is longer than either lower 
+case L or capital i. 
+
+
+1) Install the tables of the Lyric database in MySQL on your cs1 account
+2) Run the following SQL query:
+SELECT * FROM SalesPeople;
+
+The output should look like this:
+
+mysql> SELECT * FROM SalesPeople;
++---------+-----------+----------+----------+--------+------------+
+| SalesID | FirstName | LastName | Initials | Base   | Supervisor |
++---------+-----------+----------+----------+--------+------------+
+|       1 | Bob       | Bentley  | bbb      | 100.00 |          4 |
+|       2 | Lisa      | Williams | lmw      | 300.00 |          4 |
+|       3 | Clint     | Sanchez  | cls      | 100.00 |          1 |
+|       4 | Scott     | Bull     | sjb      |   NULL |       NULL |
++---------+-----------+----------+----------+--------+------------+
+4 rows in set (0.39 sec)
+
+mysql>
+
+3) Take a screenshot of your output and turn it in on CSNS.
+

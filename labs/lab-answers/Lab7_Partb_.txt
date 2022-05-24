@@ -1,0 +1,35 @@
+
+Part B, Check CSNS for due date
+English To SQL, 10 points each
+
+8. Show the number of members of each artist.
+
+SOLUTION:
+SELECT COUNT(X.ArtistID)FROM XrefArtistsMembers X INNER JOIN Artists A ON(A.ArtistID = X.ArtistID) INNER JOIN Members M ON(X.MemberID = M.MemberID) GROUP BY X.ArtistID; 
+
+9. Show the average number of members of all artists.
+
+SOLUTION: 
+SELECT (SELECT COUNT(*) FROM Members )/(SELECT COUNT(*) FROM Artists) ;
+
+10. Show each genre for which there are at least two titles.
+
+SOLUTION:
+SELECT Genre FROM Titles GROUP BY Genre HAVING COUNT(*) > 1;
+
+
+11. Show all genres with the number of titles in each. Include genres in which there are zero titles.
+
+SOLUTION: 
+SELECT G.Genre, Count(T.Genre) FROM Genre G LEFT JOIN Titles T USING(Genre) GROUP BY G.Genre;
+
+12. Show the number of artists which have recorded in genres other than alternative.
+
+SOLUTION: 
+SELECT  COUNT(T.ArtistID) FROM Titles T WHERE T.Genre NOT IN (SELECT Titl.Genre From Titles Titl WHERE Titl.Genre = 'alternative');
+
+13. Show the number of artists which have not recorded in the alternative genre.
+
+SOLUTION: 
+SELECT  COUNT(T.ArtistID) FROM Titles T WHERE T.Genre NOT IN (SELECT Titl.Genre From Titles Titl WHERE Titl.Genre = 'alternative');
+

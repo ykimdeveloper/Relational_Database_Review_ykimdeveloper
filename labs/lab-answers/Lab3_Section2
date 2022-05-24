@@ -1,0 +1,40 @@
+Lab3_Section2
+Part B, see CSNS for due date
+English To SQL, 10 points each
+
+11. List the salesid and last name of each salesperson who represents at least one member.
+
+SELECT DISTINCT  M.LastName, M.FirstName, S.LastName FROM Members M JOIN SalesPeople SP USING(SalesID) JOIN SalesPeople S USING(SalesID);
+
+12. List the salesid and last name of each salesperson who represents at least one member whose birthday is in January.
+
+SELECT DISTINCT  M.LastName, M.FirstName, M.Birthday, S.LastName FROM Members M JOIN SalesPeople SP USING(SalesID) JOIN SalesPeople S USING(SalesID) WHERE M.Birthday LIKE '%-01-%';
+
+13. List the names of the studios with the tracks which were recorded at each one.  Sort the output in order of studioID.
+
+SELECT S.StudioID, S.StudioName, T.TitleID, T.Title FROM Studios S JOIN Titles T USING(StudioID) ORDER BY S.StudioID;
+
+14. List the names of all studios where non-alternative titles have been recorded.
+
+SELECT S.StudioName, T.Title, T.Genre FROM Studios S JOIN Titles T USING(StudioID) WHERE T.Genre NOT LIKE 'alternative';
+
+15a. (6 points) List the titles of all tracks on which (anyone named) Bryce Sanders plays
+ 
+SELECT T.Title FROM Titles T JOIN Artists A USING(ArtistID) JOIN XrefArtistsMembers X USING(ArtistID) JOIN Members M USING(MemberID) WHERE M.FirstName LIKE 'Bryce' AND M.LastName LIKE 'Sanders';
+
+15b) (4 points) How could you revise the query from the last question so that it would distinguish tracks featuring different people who all happen to 
+be named Bryce Sanders?  You will *not* be able to test this, since there is only one Bryce Sanders in the database.  
+
+SELECT T.Title FROM XrefARtistsMembers X JOIN Members M USING(MemberID) JOIN Titles T USING(ArtistID) WHERE M.FirstName LIKE 'Bryce' AND M.LastName LIKE 'Sanders';	
+
+16. Find the first name and last name of each member along with a calculated daytime phone number. The daytime phone number should be the work number
+if one is listed. If the work number is null, use the home phone number.  You will need to use CASE or IF.
+
+SELECT FirstName, LastName,  
+CASE WorkPhone
+WHEN WorkPhone  THEN  WorkPhone
+ELSE HomePhone
+END AS 'Day Time Phone'
+FROM Members; 
+
+ 

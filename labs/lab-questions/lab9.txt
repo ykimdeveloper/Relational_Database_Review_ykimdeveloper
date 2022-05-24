@@ -1,0 +1,89 @@
+CS122 Lab 9
+
+Part A, due at the end of the lab period
+
+Section 1: Short Answers, 3 pts each
+
+1. What are the three key statements used in managing transactions?
+
+2. In the context of the acromym ACID used to describe the qualities of a database transaction, what does "atomicity" refer to?  
+Answer in one or two sentences.
+
+3. If you were to run the following DML command, what else would you have to do to maintain *consistency* in the DB?
+ INSERT INTO Titles VALUES (8, 2, "Down Below the Cold, Cold Ground", 3, '0987654321', 'blues');
+
+4. Why is "isolation" important in a database transaction?  Answer in one or two sentences.
+
+5. Recall that lecture 1 includes the following definition: "A database is a structured collection of persistent data"
+a) What does "persistent" mean in this context?
+b) In the context of the acromyn ACID, what does "durable" mean?
+c) Which of the key statments used in transactions ensures that changes are durable?	
+
+6a) What is the name for a series of SQL/ DML / DDL commands stored in a file?  
+6b) What is the syntax for running such a file in a DBMS? (Examples of wrong but correctly formatted answers: 
+run filename or run myfile.sql)
+
+7. Suppose you are creating a database that will keep track of pets and their owners.  Each pet has only one owner,
+but one owner may have any number of pets.  How many tables would you need for the database, and what would
+each one contain?
+
+8.	Suppose you are creating a database that will keep track of movie monsters and the films in which they appear.
+Each monster has a name and appears in 0 or more films, and one film may contain any number of monsters, including 
+zero.  Each film has a name, and there may be more fields required. How many tables would you use in this database, 
+and what would each one contain?  What would be the primary key of each table, and what foreign key(s) would 
+they contain? 
+
+
+Section 2, SQL TO English, 4 points each.
+If you run these queries, use transactions and roll them back, or else reload the lyric database using lyric.sql afterwards!
+
+9. INSERT INTO Salespeople VALUES(5, "Montbatten", "Liz", "ewm", 50.00, 1);
+
+10. UPDATE Salespeople SET Supervisor = 4 WHERE lastname = "Montbatten" and firstname = "Liz"; 
+
+
+Section 3 English To SQL, 10 points each.  Write the SQL/DML/DDL commands to accomplish the task described in each question. 
+
+Use transactions, so that you can easily recover the original data.  If a rollback does not work for some
+reason, you can run lyric.sql again.
+
+11. a) Delete all the artists which have not recorded any jazz titles (remember the distinction between this and deleting those that have recorded non-jazz titles!) 
+b) You decide not to delete the members of these artists since they might join other artists in the future.  What else should  you do in the DB when you delete the artists?
+
+
+Part B, see CSNS for due date
+
+12. Insert a new record into the members table using any valid data and update XrefArtistsMembers to make the person a 
+member of Sonata.
+
+13. Change the emails for all members of Sonata lastname@sonata.org, where lastname is the member's actual last name.
+
+Section 3: Multi-Step Problem, 8 points each
+You are implementing a database for a retail shoe store. You may create a new database if you'd like 
+(see the original instructions for setting up lyric), but it will be easier to simply add the new tables to the Lyric DB.
+
+Include in your answers all the queries and commands you use.  Always verify that each step worked as you intended.
+If some command does not accomplish what you want, everything after it is likely to fail also. 
+
+14.  Create a table called "Products" with columns called ItemNumber, ItemName, Price, and SupplierID.  Give all of 
+these columns appropriate data types.  Use a float or real data type for the price, but be sure the format you use 
+can accommodate 2 digits after the decimal point and can hold prices up to at least $999.99.   Set ItemNumber as the 
+primary key and define the column so that a unique item number is generated automatically.  Insert five products 
+with reasonable values for the other data fields (for example, one product might be called "Men's Running Shoes", 
+cost $59.99, and come from Supplier # 1.)  Make sure that at least two of the products have supplierID 1 and at least 
+one has supplierID 2. 
+
+15.  Create another table called "Suppliers" with the following columns: SupplierID, SupplierName, ContactPhone.  
+Give the columns appropriate data types.  Use a char or varchar for the ContactPhone.  Choose the appropriate primary 
+key and set it to generate an ID automatically.  Insert three suppliers with reasonable values for the data fields 
+(for example, SupplierName = "Bigfoot Shoes" and ContactPhone = '626-555-1212').
+
+16.  Write a query that shows the number of products supplied by each supplier, also showing the supplier name.
+
+17. a) Add a new constraint to the Products table that requires the ItemName to be unique.
+b) Add a new column called "Description" to the Products table.  Update the products to include descriptions.
+c) Rename the ItemNumber column in the Products table to ProductID.
+
+18. a) Delete supplier 1
+b) Do whatever is required to maintain consistency after execution of 5a.
+

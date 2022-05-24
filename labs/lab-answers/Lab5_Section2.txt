@@ -1,0 +1,60 @@
+
+Section 3 English To SQL, 12 points each
+
+
+12. Show the first and last names of each salesperson in a single column, with the first and last names separated by a space.  Give the column the heading "Employee Name."
+
+	SOLUTION: 
+	SELECT CONCAT_WS(' ',FirstName, LastName) AS 'Employee Name' FROM SalesPeople;
+
+13. Find the circumference of a circle of radius 5 and show the answer to five places past the decimal point.
+
+	SOLUTION: 
+	SELECT TRUNCATE((2 * PI() * 5), 5);
+
+
+14. Find the date on which a person who turns 21 today was born. Write your query so that it will work correctly no matter when it is run.
+
+	SOLUTION:
+	SELECT DATE_ADD(Birthday, INTERVAL 21 YEAR) FROM Members;
+
+15. Report the time in years since each artist was entered into the database (EntryDate).  Assume each year contains 365.25 days.  Write your query so that it will work at any date when the query is run.
+
+	SOLUTION:
+	SELECT TRUNCATE(DATEDIFF(CURDATE(), Entrydate) / 365.25 , 0 ) AS 'Years Since Entered into the Database' FROM Artists;
+
+16. Show the average age in years of all members.
+
+	SOLUTION:
+	SELECT AVG(DATEDIFF(CURDATE(), Birthday))/356.25 FROM Members;
+
+
+17. List the sales id of each salesperson and whether or not s/he represents a studio whose contact person is Manuel Austin.
+Order the results by sales id and use a column alias in the output.  The output should look like this:
+
++---------+-------------------------+
+| salesid | Manuel?                 |
++---------+-------------------------+
+|       1 | doesn't work with Manuel|
+|       2 | works with Manuel       |
+|       3 | doesn't work with Manuel|
+|       4 | doesn't work with Manuel|
++---------+-------------------------+
+4 rows in set (0.00 sec)
+
+Beware: if your output shows any salesid more than once, or if it omits any salesperson, YOUR QUERY IS NOT CORRECT!  Review question 5 in part A.
+
+
+	SOLUTION: 
+
+	SELECT Sales.SalesID, 
+	CASE 
+	WHEN (S.Contact = 'Manuel Austin') 
+	THEN 'Works with Manuel' ELSE 'Doesn\'t Work with_Manuel' 
+	END AS 'Manuel?' 
+	FROM SalesPeople Sales LEFT JOIN Studios S USING(SalesID) 
+	GROUP BY Sales.SalesID;
+
+
+
+

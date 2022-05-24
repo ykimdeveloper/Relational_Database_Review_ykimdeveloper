@@ -1,0 +1,134 @@
+CS122 Winter 2016 Sample Midterm
+
+Use a text editor such as Notepad++, TextEdit, TextWrangler, etc. to prepare a document containing the answers to these questions with the question numbers. 
+
+Many of the questions refer to the Lyric database.
+
+Part I: Short Answers, 4 points each
+
+
+1. Run the following query:
+SELECT * FROM SalesPeople;
+
+Provide an example of a data record that could not be added to the SalesPeople table due to a primary key conflict.  Here is an example of a wrong but correctly-formatted answer:
+
+SalesID: 10
+FirstName: Mary
+LastName: Smith
+Initials: MLS
+Base: 100
+Supervisor: 1
+
+SOLUTION:
+SalesID: 1
+FirstName: Tom
+LastName: Jones
+Initials: TLM
+Base: 10000
+Supervisor: 4
+
+
+
+2. Suppose a Member's MemberID does not appear as the MemberID for any record in the XRefArtistsMembers table. What does this mean?
+
+SOLUTION:
+	This would mean the Member does not exist in any Artist and wouldnt have any assocation with an ArtistID.  
+
+
+3. Consider the following tables:
+
+Ships
+ID		Name				MaxSpeed
+1		Bounty					20
+2		Lusitania				40
+3		Edmund Fitzgerald		60
+4		Good Ship Lollipop		30
+
+Products
+ID		Description
+4		Breadfruit
+5		Ammunition
+8		Iron Ore
+17		Candy
+
+a) Why is ID a better primary key than Name for the Ships table? 
+b) A natural join using these two tables would probably not be very meaningful.  Why not?
+c) Suppose each ship carried exactly one type of cargo.  How could we change the database to show which ships carried which types of cargo?
+d) Suppose each ship could carry any number of cargo types, including zero.  How could we change the database to show which ships carried which types of cargo?		
+
+SOLUTION:
+A) ID as different Integer values show that each record in the column table is unique.  
+B) Natural Join is automatically determined by the DBMS and it's inpredictable.  
+C) put the poduct inside the Ships table create a record for each ship on what type of cargo the ships carry.
+D) put a productsID and the quantity for each ship inside the ships table to show any number of cargo types including zero.  
+
+
+4. Consider a table called "Monsters" with the following data:
+
+ID 	Name			WeightInKg
+1 	Mothra			15000
+2 	Smog Monster	5000
+3 	Godzilla		NULL
+
+What output (specific number, eg 2000) would the following query produce?
+
+SELECT avg(WeightInKg) FROM monsters;
+
+SOLUTION:
+	15000 + 500 = 20000/2 = 10000
+
+
+5. SELECT MAX(Birthday) FROM Members WHERE Country != "Canada";
+
+SOLUTION:
+This query shows members that is not from Canada and it displays the youngest person from all the members of all the artists.  
+
+
+6. SELECT Lastname, FirstName, ArtistName FROM Members M INNER JOIN XrefArtistsMembers X On M.MemberID = X.MemberID JOIN Artists A On A.ArtistID = X.ArtistID WHERE M.Gender = "F";
+
+SOLUTION:
+This query shows all first and last names of members and the artists that are women.  
+
+
+7. You are writing a large application for your employer, the Universal Glue Corporation.  The application will maintain information on the company's products, customers, employees, and vendors. It will also track the company's accounting data (such as its debts to other organizations, debts owed to it, its revenues and expenses, etc.)  Why should you use a relational database instead of an Excel spreadsheet or a text file?
+
+SOLUTION:
+With a relational Database, you can view multiples of Tables and Selections and Calculations.  Among all that information, you can Analyze the records which is important to maintain the companies products, employees vendors and its customers.  Its very important to have the information dynamic with current time where with Excel file being one file, isn't so dynamic with the whole scheme of things within the companies information.  For example, if a current Supervisor would like to know if any vendors doesn't bring constant influx of sales from items they bring and their items are not selling, It would be important for this company to know wheter to purchase more or if any of their new items because we know how customers will react to a certain vendors merchandize within the Universale Glue Corporation.  Therefore having a large data set instead of one file is much needed because That was just one example.
+
+
+8. Show how many SalesPeople (just one number, not a list) have base salaries higher than 100
+
+SOLUTION:
+	SELECT COUNT(Base) FROM SalesPeople WHERE (Base > 100);
+
+9. Show the average time in years since each artist was entered in the database.  Calculate the time based on the Entrydate field in the artists table and assume each year contains 365.25 days.  Use CURDATE() so that the query will work correctly whenever it is run.
+
+SOLUTION:
+	SELECT AVG(DATEDIFF(CURDATE(), EntryDate))/356.25 FROM Artists;
+
+10. Show the name of each studio with the last name of the *supervisor* of the salesperson who represents it.
+
+SOLUTION:
+SELECT S.StudioName, SS.LastName AS Supervisor FROM Studios S JOIN SalesPeople SS USING(SalesID) LEFT JOIN SalesPeople Sales ON SS.Supervisor = Sales.SalesID;
+
+11. List each track and whether or not it is part of a title in the "classical" genre. Use CASE or IF.
+
+SOLUTION:
+SELECT Title, 
+CASE 
+WHEN (Genre = 'classical') 
+THEN 'Yes' ELSE 'No' 
+END AS 'Is Genre Classical' 
+FROM Titles;
+
+12. Show the Tracktitle of each track that was *not* recorded at Pacific Rim.
+
+SOLUTION:
+	SELECT T.Title FROM Titles T JOIN Studios S USING(StudioID) WHERE S.StudioName LIKE 'Pacific Rim';	
+
+
+13. Show the names of all studios where no alternative titles have been recorded.
+
+SOLUTION:
+	SELECT S.StudioName FROM Studios S JOIN Titles T USING(StudioID) WHERE T.Genre NOT LIKE 'alternative';	
+

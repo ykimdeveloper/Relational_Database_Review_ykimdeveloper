@@ -1,0 +1,77 @@
+1. 
+a) What is a Database Management System (DBMS)?
+
+answer: A database management system (DBMS) creates and manages data structures. DBMS creates by inserting or updates by modifying and deleting data. It also retrieves information for user queries or from applications. DBMS manages data and administers users as well as monitors performance, security and concurrency of many users.
+
+b) Name three common Database Management Systems
+
+answer: MySQL, PostgreSQL and Oracle.
+
+2. What is the definition of a particular database, defining the tables, relationships, constraints, etc. called?  
+You should be able to answer this question in one word.
+
+answer: Schema
+
+3. Consider the definition of database given in the first lecture.  What does the word "structured" mean in this context?
+
+answer: Structured means it's organized to a set of rules and it's organized with a database model in mind. 
+
+
+4. Consider the definition of database given in the first lecture.  What does the word "persistent" mean in this context?
+
+answer: Persistent in this context is referring to permanent storage.  Which means when you shut the computer off, the data is saved and not lost.
+
+5. SQL is described as a "nonprocedural" or "declarative" language.  What does that mean?  Don't just copy the text 
+from the lecture notes or Wikipedia, explain it in your own words.
+
+answer: It's a language you don't need an algorithm to figure out how to accomplish a task.  The programmer is required to only describe the data.  
+
+
+6. In which table are the names of the salespeople stored?
+
+answer: SalesPeople table
+
+
+7. In which table are the names of the members stored?
+
+answer: Members table
+
+8. Are there any fields that are common to both of the tables mentioned in the previous two questions?  
+If so, which ones?
+
+answer: SalesPeople table and Members table both have FirstName and LastName fields which are entirely seperate from each other.  SalesID field probably has the same data where it's a 1 to many relationship or many to 1 relationship.  
+
+9. What does it mean if an artist's artistID appears as the artistID for a record in the titles table?
+
+answer: The Titles table recieves the artistID from the Artists table.
+
+
+10. What does it mean if a salesperson's salesID appears as the salesID for a studio in the studios table?
+
+answer: The salesID can be under multiple Studios.
+
+
+11. Suppose we want to find out the address of a studio.  Which table(s) do we need to check?
+
+answer: Studios table
+
+12. Suppose we know the name of a title and want to find out the address of the studio where it was recorded.  Which 
+table(s) do we need to check?
+
+answer: Titles table
+
+13. Why do the 6 records in the titles table only have 5 different artistIDs?
+
+answer: two of the tracks could possibly be under one ArtistId. 
+
+14. Suppose we want to find out how many different artists have recorded titles at a particular studio, but
+we don't need any other information about the artists.  Which table or tables do we need to check, and which 
+fields will we need to examine?
+
+answer: Go to the Titles table and the Studios table
+
+15. In order to find out which individuals are members of the Bullets, we need to check Artists, Members, and 
+XrefArtistsMembers.  Why do we need all three?
+
+answer: To look for the members of Bullets, XrefArtistMembers looks at the amount of people in the band, inside the RespParty field. To look inside the specifics of the band members name and their full information, we would need to look inside the Members Party table.
+ 

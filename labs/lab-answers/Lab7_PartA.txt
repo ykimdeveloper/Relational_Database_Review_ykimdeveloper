@@ -1,0 +1,70 @@
+CS 122 Lab 7 
+Part A, due at the end of the lab period
+
+Section 1: Short Answers, 4 pts each
+
+1. It is an error to use an aggregate function in a WHERE clause, but not in a HAVING clause. What is the  difference between WHERE and HAVING that makes this possible?
+
+SOLUTION:
+The difference is that WHERE takes place before any aggregate function runs.  HAVING takes place after the aggregate function runs and it looks at conditions after aggregate is running. HAVING looks at conditions that's in a group. 
+
+2. Suppose the table Vehicles contains the following data:
+ 
+ID       Make
+ 
+1         Honda
+2         Ford
+3         Ford
+4		  BMW 	
+5		  BMW
+6		  BMW	 		
+7		  Honda
+8		  Mazda 
+What output will the following query produce?
+SELECT make, count(*) FROM vehicles GROUP BY make HAVING count(*) > 1;
+In this case, list, rather than describe, the actual output row by row.
+
+SOLUTION:  
++--------------------+----------+
+| make               | count(*) |
++--------------------+----------+
+| Honda              |        2 |
+| Ford               |        2 |
+| BMW                |        2 |
++--------------------+----------+
+
+
+3. Consider the following query, which counts the number of artists who do not have web addresses listed in the database:
+SELECT COUNT(A.ArtistID) FROM Artists A WHERE A.Webaddress IS NULL;
+ 
+The lecture notes say that count() does not count nulls.  Why does the query still return a good result?
+
+SOLUTION: 
+The lecture Notes is correct on the technicality that the WHERE clause filters before aggregation and so it will look at the webaddresses that is NULL and then aggregate COUNT(A.ArtistID) FROM Artists A
+
+
+Section 2 SQL To English, 4 pts each.  Describe in non-technical language what each query does.
+
+4. SELECT Titleid, COUNT(Tracktitle) FROM Tracks GROUP BY Titleid;
+
+SOLUTION:
+Show how many tracks there are in each album title.  
+
+5. SELECT S.Salesid, S.Lastname, COUNT(TitleID) FROM SalesPeople S JOIN Studios ST ON(S.Salesid = ST.salesid) JOIN Titles T
+ ON(ST.StudioID = T.studioid) GROUP BY ST.Salesid;
+
+SOLUTION:
+List the quantity of titles the Sales Person has worked on, along with their last name and salesID.  
+
+Section 3 English To SQL, 10 points each
+
+6. Show the number of salespeople who represent at least one studio each.
+
+SOLUTION: 
+SELECT  COUNT(S.SalesID) FROM SalesPeople S JOIN Studios ST ON(S.Salesid = ST.salesid) GROUP BY ST.Salesid HAVING count(S.SalesID) > 1;
+
+
+7. Show the number of salespeople who do not represent any studios.
+
+SOLUTION:
+SELECT COUNT(SalesID) From SalesPeople Where SalesID NOT IN (Select DISTINCT SalesID FROM Studios);

@@ -1,0 +1,72 @@
+I. Short Answers, 2 points each
+
+1) SQL uses a two-step process to perform joins.  What are the two steps?
+
+SOLUTION: It does the Cartisean Product (cross product) with Conditions
+
+2) What is the difference between an outer join and an inner join?
+
+SOLUTION: Inner Join checks every record in the tables and gives you rows that have fields that are sharing with matching rows.  Outer Join checks rows in the table that doesn't have matches so therefore gives to NULL.  
+
+3) What is the difference between a left join and a right join?
+
+SOLUTION: The Differences depend where the tables are.  It really doesn't have any differences except if Table A is on the Left side and Table B is on the Right side, then the left join will take every record on the left side and list it at least once and Table B displays matching records and does an inner join.  If there are no matching records then it will display NULL.  And so vice versa on the right join.   
+
+4) How can you find the records in one table for which there are no 
+records in a second table that match based on a join condition?
+
+SOLUTION: Do an LEFT JOIN (or an outer join) and see if the second table has any records for the primary key and if it doesn't it will display NULL.
+
+5) Suppose you write one query that finds the names of all artists which have members who were not born in the 1960s and another query to find the names of all artists which do not have any members born in the 1960s.  What would be 
+true of any artist that appeared in the results of the first query but not in the results of the second?
+
+SOLUTION: It would show that the query shows NULL in the birthday records.  
+
+6) Why do these two queries return the same information in the lyric database?
+ 
+SELECT M.LastName, A.ArtistName FROM members M LEFT JOIN XRefArtistsMembers X USING(MemberID) JOIN Artists A on X.ArtistID = A.ArtistID;
+And
+SELECT M.LastName, A.ArtistName FROM members M INNER JOIN XRefArtistsMembers X USING(MemberID) JOIN Artists A on X.ArtistID = A.ArtistID;
+
+
+SOLUTION: The LEFT JOIN will list everything(lastName and AristName) from members at least once using MemberID from XRefArtistsMembers and Artist table having the same ArtistID.  The second query will have matching records found on the second table. Left Join is listed the same way as inner join in this case.  
+
+7) What are two uses for Self Joins?
+
+SOLUTION: One example is when foreign key and primary key is in the same table and the foreign key references the primary key.  Another example is when you want to find pairs of records in the same table
+
+8) Why are table aliases needed in Self Joins? 
+
+SOLUTION: There should be Aliases when representing comparisons of two records from a single table.  This is to help understand the data using the same field names.  
+
+II. SQL to English, 8 points each
+
+Describe what each query will produce.  Don't list the actual data, just explain what the query returns.
+
+9) SELECT T.Title, T.TitleID, G.Genre FROM Titles T RIGHT JOIN Genre G ON T.Genre = G.Genre;
+
+Answer:	This query will return the Titles including NULL and TitleID including NULL and the Genre of the songs. All the Genres will be listed at least once even titles that don't exist and the conditions for the titles that have genres is listed for each genre assocated in the Titles table.  
+
+10) SELECT G.Genre, T.TitleID, T.Title FROM Genre G LEFT JOIN Titles T ON G.Genre = T.Genre;
+
+SOLUTION: This query will return the genre, titleID and the title of each genre.  For each genre that's assigned to the TitleID and the Title, it will also assign NULL values to genres that are not associated to the song titles and titleID which means any associations to those genres do not exist.
+
+11) SELECT G.Genre FROM Genre G LEFT JOIN Titles T ON G.Genre = T.Genre WHERE T.TitleID IS NULL;
+
+SOLUTION: This query will return each genre that doesn't have songs thats associated with that particular genre.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
