@@ -2,7 +2,6 @@
 Using this diagram for sql review
 ![Screenshot](blob/lyric.jpg)
 
-![Screenshot](https://github.com/cowboyuniverse/database-review/blob/master/blob/lyric.jpg)
 
 ## Course Schedule
 
